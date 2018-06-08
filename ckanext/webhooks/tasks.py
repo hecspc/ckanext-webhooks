@@ -4,12 +4,10 @@ import logging
 import requests
 import ckan.model as models
 
-from ckan.lib.celery_app import celery
 from pylons import config
 
 log = logging.getLogger(__name__)
 
-@celery.task(name='webhooks.notify_hooks')
 def notify_hooks(resource, webhook, site_url):
     log.info('Firing webhooks for {0}'.format(webhook['topic']))
 

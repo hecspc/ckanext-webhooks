@@ -15,6 +15,8 @@ import ckan.lib.jobs as jobs
 from ckan.lib.dictization import table_dictize
 from ckan.model.domain_object import DomainObjectOperation
 
+from ckanext.webhooks import tasks
+
 log = logging.getLogger(__name__)
 
 class WebhooksPlugin(plugins.SingletonPlugin):
@@ -75,7 +77,7 @@ class WebhooksPlugin(plugins.SingletonPlugin):
             resource = table_dictize(entity, context)
             webhook = table_dictize(hook, context)
             jobs.enqueue(
-                ckanext.webhooks.plugin.notify_hooks,
+                tasks.notify_hooks,
                 [resource, webhook, config.get('ckan.site_url')]
             )
 
