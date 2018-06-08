@@ -4,7 +4,7 @@ from pylons import config
 
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
-import ckan.new_authz as new_authz
+import ckan.authz as authz
 
 log = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ def _user_has_minumum_role(context):
         return {'success': False}
 
     # Always let sysadmins do their thing.
-    if new_authz.is_sysadmin(user):
+    if authz.is_sysadmin(user):
         return {'success': True}
 
     # We let sysadmins in just not, so just refuse if we get here.
